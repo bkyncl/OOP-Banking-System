@@ -9,6 +9,7 @@
 # Then you may select from either view balance/deposit/whithdraw/etc.. from the menu options.
 # Re-running the program will re-set each account
 
+# parent bank accoutn class
 class Bank_act:
     """A simple bank account"""
 
@@ -50,12 +51,11 @@ class Checking_act(Bank_act):
         """check for minimum balance"""
         if self.bal < self.min_bal:
             print("\n\t-------!!!WARNING!!!--------\n!!Your Account is Now Below Minimum Balance!!")
-            print(f'-----!!A Penalty Fee of ${self.fees} Was Charged!!-----')
             
     def deductFees(self):
-        """deduct under minimum balance fee from checking"""
-        if self.bal < self.min_bal:
-            self.withdraw(self.fees)
+        """deduct maintenance fee"""
+        self.withdraw(self.fees)
+        print(f'-----!!A Fee of ${self.fees} Was Charged to {self.act_no}!!-----')
 
 
 #child savings accoutn class
@@ -84,7 +84,6 @@ while True: # program re-run loop
     c = Savings_act('122--Savings', 1000, 0.02)
     d = Savings_act('322--Savings', 15000, 0.02)
 
-    
     print('\n---Banking Program---\n') # program display
     print("Please enter account holder ID\n") 
     print("--Enter 'one' to view account instance with $200 balance.--")
@@ -109,17 +108,16 @@ while True: # program re-run loop
             except ValueError:
                 print('Invalid Entry. Enter a number')
                 continue
-            if options >= 1 and options <= 4:
+            if options >= 1 and options <= 5:
                 break
             else:
-                print('Invalid Entry. Enter a number 1-4.')
+                print('Invalid Entry. Enter a number 1-5.')
         
         while True:
 
             if options == 1:
                 print(a.getBal()) # display checkin account balance
                 a.check_Min_Bal() # min bal check
-                a.deductFees() # fee deduct check
                 break
         
             elif options == 2:
@@ -135,7 +133,6 @@ while True: # program re-run loop
                 try:
                     a.withdraw(float(input('Enter Withdrawal: '))) # make withdrawal
                     a.check_Min_Bal() # min bal check
-                    a.deductFees() # fee deduct check
                 except ValueError:
                     print('Invalid Entry')
                     continue
@@ -166,17 +163,16 @@ while True: # program re-run loop
                 except ValueError:
                     print('Invalid Entry. Enter a number')
                     continue
-                if options >= 1 and options <= 4:
+                if options >= 1 and options <= 5:
                     break
                 else:
-                    print('Invalid Entry. Enter a number 1-4.')
+                    print('Invalid Entry. Enter a number 1-5.')
             
             while True:
 
                 if options == 1:
                     print(b.getBal()) # display checkin account balance
                     b.check_Min_Bal() # min bal check
-                    b.deductFees() # fee deduct check
                     break
             
                 elif options == 2:
@@ -192,7 +188,6 @@ while True: # program re-run loop
                     try:
                         b.withdraw(float(input('Enter Withdrawal: '))) # make withdrawal
                         b.check_Min_Bal() # min bal check
-                        b.deductFees() # fee deduct check
                     except ValueError:
                         print('Invalid Entry')
                         continue
